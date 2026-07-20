@@ -3,7 +3,35 @@ from typing import Callable, Optional, Tuple
 import numpy as np
 import torch
 import torch.nn as nn
-from torchmcubes import marching_cubes
+
+try:
+    from torchmcubes import marching_cubes as _torchmcubes_marching_cubes
+except ImportError:
+    _torchmcubes_marching_cubes = None
+
+try:
+    import mcubes as _mcubes
+except ImportError:
+    _mcubes = None
+
+
+def marching_cubes(
+    level: torch.FloatTensor, thresh: float = 0.0
+) -> Tuple[torch.FloatTensor, torch.LongTensor]:
+    if _torchmcubes_marching_cubes is not None:
+        return _torchmcubes_marching_cubes(level, thresh)
+
+    if _mcubes is None:
+        raise ImportError(
+            "Install torchmcubes or PyMCubes to run marching cubes isosurface extraction."
+        )
+
+    volume = level.detach().cpu().numpy()
+    vertices, faces = _mcubes.marching_cubes(np.ascontiguousarray(volume), thresh)
+    return (
+        torch.from_numpy(np.ascontiguousarray(vertices)).float(),
+        torch.from_numpy(np.ascontiguousarray(faces).astype(np.int64)),
+    )
 
 
 class IsosurfaceHelper(nn.Module):
