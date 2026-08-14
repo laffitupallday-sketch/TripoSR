@@ -26,4 +26,4 @@ Item 2 does not rewrite git history.
 | 17 | Trim API responses | n_a | `README.md` | No hosted API. |
 | 18 | Add security headers | n_a | `README.md` | No hosted web origin. |
 | 19 | Force HTTPS | n_a | `README.md` | No hosted web origin. |
-| 20 | Scan dependencies | partial | `README.md` | Upstream Python deps; no Dependabot in this snapshot. |
+| 20 | Scan dependencies | in_code | `.github/dependabot.yml` `requirements.txt` | Weekly pip (root) + Actions. Upstream research snapshot — operator still reviews bumps. |
