@@ -68,6 +68,24 @@ pip uninstall torchmcubes
 pip install git+https://github.com/tatsy/torchmcubes.git
 ```
 
+### Fork note — PyMCubes CPU fallback
+
+This fork adds a pure-Python **PyMCubes** fallback in
+[`tsr/models/isosurface.py`](tsr/models/isosurface.py): if `torchmcubes` cannot
+be imported (e.g. its CUDA extension failed to build), marching-cubes isosurface
+extraction falls back to `mcubes` on CPU instead of raising `ImportError`. This
+is the only change relative to upstream `VAST-AI-Research/TripoSR`.
+
+The fallback is **optional** and not installed by default. To enable it:
+
+```sh
+pip install PyMCubes
+```
+
+The CUDA `torchmcubes` path remains the default and is preferred for
+performance; the fallback exists for portability on machines where the CUDA
+build is unavailable.
+
 ## Citation
 ```BibTeX
 @article{TripoSR2024,
