@@ -7,7 +7,7 @@ Item 2 does not rewrite git history.
 
 | # | Item | Status | Evidence | Notes |
 |---|------|--------|----------|-------|
-| 1 | Hide API keys | in_code | `README.md` `.github/workflows/secret-scan.yml` | No product secrets. Workflow scans high-signal shapes. |
+| 1 | Hide API keys | in_code | `README.md` `.github/workflows/secret-scan.yml` `SECURITY.md` `.gitignore` | No product secrets. `.env` gitignored. Workflow scans high-signal shapes. Upstream MIT `LICENSE` stays. |
 | 2 | Purge Git secrets | blocked_a4 | `.github/workflows/secret-scan.yml` | Scanner only. No history rewrite. |
 | 3 | Use public DB key | n_a | `README.md` | Research code, no DB. |
 | 4 | Enable row-level security | n_a | `README.md` | No DB. |
